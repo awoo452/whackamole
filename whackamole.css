@@ -1,0 +1,133 @@
+body {
+    background-color: rgb(45, 105, 215)!important;
+    font-family: 'Oswald', sans-serif!important;
+}
+
+
+
+h1 {
+    color: white;
+}
+
+h1 h2, h3, h4, h5, h6 {
+    color: black;
+    margin: 0!important;
+}
+
+.start {
+    background-color: darkgreen;
+    border-radius: 8px;
+}
+
+.grid {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px;
+    height: 49vh;
+    border-radius: 5px;
+    background-image: url($board-background-image);
+}
+
+.square {
+    width: 33%;
+    height: 33%;
+}
+
+.mole {
+    background-image: url('img/mole.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.onion {
+    background-image: url('img/onion.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.tomato {
+    background-image: url('img/tomato.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.textbox {
+    background-image: url('img/bg.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border: 4px solid darkgreen;
+}
+
+.statbox {
+    background-image: url('img/pit.png');
+    background-position: center;
+    background-size: cover;
+    width: 40%;
+    border-radius: 50%;
+    border: 2px solid rgb(24, 68, 24);
+}
+
+.bowl {
+    background-image: url('img/bowl.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.itsAStart {
+    background-image: url('img/25.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.halfEmpty {
+    background-image: url('img/50.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.lookinGood {
+    background-image: url('img/75.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.fullAMole {
+    background-image: url('img/100.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.nice {
+    background-image: url('img/nice.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.rules {
+    background-color: limegreen;
+    border-radius: 40%;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border: 1px solid black;
+}
+
+
+#hammer {
+    cursor: url('img/hammer.cur'),auto;
+}

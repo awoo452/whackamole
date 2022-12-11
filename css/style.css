@@ -1,0 +1,122 @@
+body {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  background-color: #2d69d7;
+  font-family: "Oswald", sans-serif;
+}
+
+body #top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vh;
+  margin-bottom: 1em;
+}
+
+body #top #avocadoStats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 225px;
+  padding: 2em;
+  background-image: url("../img/bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  border: 5px solid darkgreen;
+  border-radius: 50%;
+  text-align: center;
+}
+
+body #top #avocadoStats #pit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 125px;
+  height: 125px;
+  margin: 1em;
+  padding: 1em;
+  background-image: url("../img/pit.png");
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+body #top #avocadoStats #pit h6 {
+  color: white;
+}
+
+body #top .bowl {
+  height: 200px;
+  width: 200px;
+  margin-left: 1em;
+  background-image: url("../img/bowl.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body #top .itsAStart {
+  height: 200px;
+  width: 200px;
+  background-image: url("../img/25.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body #top .halfEmpty {
+  height: 200px;
+  width: 200px;
+  background-image: url("../img/50.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body #top .lookinGood {
+  height: 200px;
+  width: 200px;
+  background-image: url("../img/75.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body #top .fullAMole {
+  height: 200px;
+  width: 200px;
+  background-image: url("../img/100.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body #top .nice {
+  height: 200px;
+  width: 200px;
+  background-image: url("../img/nice.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body .grid {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: center;
+  border-style: 1px solid;
+  height: 40vh;
+  width: 60vw;
+  border-radius: 5px;
+  background-image: url("../img/woodgrain.jpg");
+}
+
+body .grid .square {
+  width: 33%;
+  height: 33%;
+}
