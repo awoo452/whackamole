@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on Keep a Changelog, and this project follows Semantic Versioning.
 
 
+## 0.0.4 - 2026-02-21
+### Changed
+- Consolidated gameplay state into a single `state` object.
+- Standardized timing to a single tick constant.
+- Renamed DOM collections for clarity (`squares`, `startButtons`, `scoreEl`).
+
 ## 0.0.3 - 2026-02-21
 ### Added
 - Minimal `amplify.yml` for static hosting builds.

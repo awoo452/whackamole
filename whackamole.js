@@ -1,27 +1,30 @@
 // Assign the '' variable as the HTML elements with corresponding class
-const square = document.querySelectorAll('.square');
-const start = document.querySelectorAll('.start');
+const squares = document.querySelectorAll('.square');
+const startButtons = document.querySelectorAll('.start');
 const bowlometer = document.querySelector('#bowlometer');
 const timeLeft = document.querySelector('#time-left');
-let score = document.querySelector('#score');
+const scoreEl = document.querySelector('#score');
 const GAME_DURATION = 30;
-const SPAWN_INTERVAL_MS = 1000;
-const FILL_INTERVAL_MS = 1000;
+const TICK_MS = 1000;
 const BOWL_CLASSES = ['itsAStart', 'halfEmpty', 'lookinGood', 'fullAMole', 'nice'];
 const INGREDIENT_CLASSES = ['mole', 'onion', 'tomato'];
-// Initialize the 'result', 'timerId', 'randomId', 'fillId', and 'currentTime' variables to 0
-let result = 0;
+// Initialize timer ids and game state
 let timerId = 0;
 let randomId = 0;
 let fillId = 0;
-let currentTime = 0;
-let hitPosition = null;
+const state = {
+    time: 0,
+    score: 0,
+    hitPosition: null,
+    running: false,
+};
 
 function stopGame() {
     clearInterval(timerId);
     clearInterval(randomId);
     clearInterval(fillId);
-    hitPosition = null;
+    state.hitPosition = null;
+    state.running = false;
 }
 
 // Add and remove img to an HTML element with the square class
@@ -30,20 +33,20 @@ function stopGame() {
     // C: Assign the 'randomPosition' variable to one of the 9 squares and add the 'mole', 'onion', or 'tomato' class to that square
     // D: Assign the 'hitPosition' variable the id of the 'randomPosition' variable
 function randomSquare() {
-    square.forEach(className => {// A
+    squares.forEach(className => {// A
         className.classList.remove(...INGREDIENT_CLASSES);
     });
 
-    if (currentTime === 0) {// B
-        hitPosition = null;
+    if (state.time === 0) {// B
+        state.hitPosition = null;
         return;
     }
 
-    const randomPosition = square[Math.floor(Math.random() * square.length)];// C
+    const randomPosition = squares[Math.floor(Math.random() * squares.length)];// C
     const ingredientClass = INGREDIENT_CLASSES[Math.floor(Math.random() * INGREDIENT_CLASSES.length)];
     randomPosition.classList.add(ingredientClass);
 
-    hitPosition = randomPosition.id;// D
+    state.hitPosition = randomPosition.id;// D
 }
 
 // Listen for mouse clicks on each of the HTML elements assigned the square class
@@ -51,15 +54,15 @@ function randomSquare() {
     // B: If the id of the square matches the id of the 'hitPosition' variable exactly
     // C: Check if the game has any time left, if there is no time left don't allow the score to increase
     // D: If the game does have time left, add one to the score
-    square.forEach(id => {
+    squares.forEach(id => {
     id.addEventListener('mouseup', () => {// A
-        if (currentTime === 0) {// C
+        if (!state.running || state.time === 0) {// C
             return;
         }
 
-        if (id.id === hitPosition) {// B
-            result++;
-            score.textContent = result;            
+        if (id.id === state.hitPosition) {// B
+            state.score++;
+            scoreEl.textContent = state.score;            
         }
     })
 })
@@ -69,7 +72,7 @@ function randomSquare() {
 // B: If it is, remove the existing assigned class
 // C: And replace it with a new one
 function fillTheBowl() {
-    const scoreValue = Number(score.textContent);
+    const scoreValue = state.score;
 
     bowlometer.classList.remove(...BOWL_CLASSES);// B
 
@@ -105,16 +108,16 @@ function fillTheBowl() {
     // D: Otherwise, subtract 1 from the 'currentTime' variable 
     // E: Set the text content of the 'timeLeft' variable equal to the 'currentTime' variable
 function countDown() {
-    if (currentTime <= 0) {// A
+    if (state.time <= 0) {// A
         stopGame();// B
-        //alert(`GAME OVER! Your final score is ${result}`);// C
+        //alert(`GAME OVER! Your final score is ${state.score}`);// C
         return;
     }
 
-    currentTime--;// D
-    timeLeft.textContent = currentTime;// E
+    state.time--;// D
+    timeLeft.textContent = state.time;// E
 
-    if (currentTime === 0) {
+    if (state.time === 0) {
         stopGame();// B
     }
     
@@ -132,18 +135,19 @@ function countDown() {
     // J: Set the 'result' variable = 0
     // K: Set the text content of any HTML element with the class score to the value of the 'result' variable
     // L: The 'timerId' variable is set to call the countDown function every specified time interval
-start.forEach(id => {
+startButtons.forEach(id => {
     id.addEventListener('mouseup', () => {// A
         stopGame();// B
+        state.running = true;
         bowlometer.classList.remove(...BOWL_CLASSES);// C
         alert('Smash the ingredients as they appear by clicking on them to make some digital guacamole!?'); // E
-        randomId = setInterval(randomSquare, SPAWN_INTERVAL_MS); // F
-        fillId = setInterval(fillTheBowl, FILL_INTERVAL_MS); // G
-        currentTime = GAME_DURATION; // I
-        timeLeft.textContent = currentTime; // H
-        result = 0; // J
-        score.textContent = result; // K
-        timerId = setInterval(countDown, 1000);// L
+        randomId = setInterval(randomSquare, TICK_MS); // F
+        fillId = setInterval(fillTheBowl, TICK_MS); // G
+        state.time = GAME_DURATION; // I
+        timeLeft.textContent = state.time; // H
+        state.score = 0; // J
+        scoreEl.textContent = state.score; // K
+        timerId = setInterval(countDown, TICK_MS);// L
     })
 })
 
