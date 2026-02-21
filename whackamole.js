@@ -10,54 +10,37 @@ let timerId = 0;
 let randomId = 0;
 let fillId = 0;
 let currentTime = 0;
+let hitPosition = null;
 
 // Add and remove img to an HTML element with the square class
     // A: Remove the 'mole', 'onion', and 'tomato' class from each square 
-    // B: If the 'currentTime' variable exactly equals 0, assign null to the 'randomPosition' variable
+    // B: If the 'currentTime' variable exactly equals 0, clear the 'hitPosition' and stop
     // C: Assign the 'randomPosition' variable to one of the 9 squares and add the 'mole', 'onion', or 'tomato' class to that square
     // D: Assign the 'hitPosition' variable the id of the 'randomPosition' variable
 function randomSquare() {
-    let randomNumber = (Math.floor(Math.random() * 3) +1); // Generate random number between 1 & 3 to use for the if else statement
-    if (randomNumber === 1) {
-        square.forEach(className => {// A
-            className.classList.remove('mole');
-            className.classList.remove('onion');
-            className.classList.remove('tomato');
-        })  
+    square.forEach(className => {// A
+        className.classList.remove('mole');
+        className.classList.remove('onion');
+        className.classList.remove('tomato');
+    });
+
     if (currentTime === 0) {// B
-       let randomPosition = null;
-    } else {
-    randomPosition = square[Math.floor(Math.random() * 9)];// C
-    randomPosition.classList.add('mole');
+        hitPosition = null;
+        return;
     }
-    hitPosition = randomPosition.id;// D
+
+    const randomNumber = Math.floor(Math.random() * 3) + 1; // Generate random number between 1 & 3 to use for the if else statement
+    const randomPosition = square[Math.floor(Math.random() * 9)];// C
+
+    if (randomNumber === 1) {
+        randomPosition.classList.add('mole');
     } else if (randomNumber === 2) {
-        square.forEach(className => { // A
-            className.classList.remove('mole');
-            className.classList.remove('onion');
-            className.classList.remove('tomato');
-        })
-        if (currentTime === 0) {// B
-        let randomPosition = null;
-        } else {
-        randomPosition = square[Math.floor(Math.random() * 9)];// C
         randomPosition.classList.add('onion');
-        }
-        hitPosition = randomPosition.id;// D
     } else if (randomNumber === 3) {
-        square.forEach(className => {// A
-            className.classList.remove('mole');
-            className.classList.remove('onion');
-            className.classList.remove('tomato');
-        })
-        if (currentTime === 0) {// B
-        let randomPosition = null;
-        } else {
-        randomPosition = square[Math.floor(Math.random() * 9)];// C
         randomPosition.classList.add('tomato');
-        }
-        hitPosition = randomPosition.id;// D
     }
+
+    hitPosition = randomPosition.id;// D
 }
 
 // Listen for mouse clicks on each of the HTML elements assigned the square class
@@ -67,13 +50,13 @@ function randomSquare() {
     // D: If the game does have time left, add one to the score
     square.forEach(id => {
     id.addEventListener('mouseup', () => {// A
-        if(id.id === hitPosition){// B
-            if (currentTime === 0) {// C
-                id.removeEventListener('mouseup');
-            } else if (currentTime != 0) {// D
-                result++;
-                score.textContent = result;            
-            }
+        if (currentTime === 0) {// C
+            return;
+        }
+
+        if (id.id === hitPosition) {// B
+            result++;
+            score.textContent = result;            
         }
     })
 })
@@ -117,13 +100,24 @@ function fillTheBowl() {
     // D: Otherwise, subtract 1 from the 'currentTime' variable 
     // E: Set the text content of the 'timeLeft' variable equal to the 'currentTime' variable
 function countDown() {
-    if(currentTime === 0 ) {// A
+    if (currentTime <= 0) {// A
         clearInterval(timerId);// B
+        clearInterval(randomId);
+        clearInterval(fillId);
+        hitPosition = null;
         //alert(`GAME OVER! Your final score is ${result}`);// C
-        } else {
-            currentTime--;// D
-            timeLeft.textContent = currentTime;// E
-        }
+        return;
+    }
+
+    currentTime--;// D
+    timeLeft.textContent = currentTime;// E
+
+    if (currentTime === 0) {
+        clearInterval(timerId);
+        clearInterval(randomId);
+        clearInterval(fillId);
+        hitPosition = null;
+    }
     
 }
 
@@ -148,8 +142,8 @@ start.forEach(id => {
         alert('Smash the ingredients as they appear by clicking on them to make some digital guacamole!?'); // E
         randomId = setInterval(randomSquare, 1000); // F
         fillId = setInterval(fillTheBowl, 1000); // G
-        timeLeft.textContent = 30; // H
         currentTime = 30; // I
+        timeLeft.textContent = currentTime; // H
         result = 0; // J
         score.textContent = result; // K
         timerId = setInterval(countDown, 1000);// L
