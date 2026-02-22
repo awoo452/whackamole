@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project follows Semantic Versioning.
 
+## 0.0.5 - 2026-02-22
+### Added
+- Terms of Use and Privacy Policy pages.
+- Footer links to legal pages.
+- LICENSE file.
+- `.gitignore` to ignore temp artifacts.
+
 
 ## 0.0.4 - 2026-02-21
 ### Changed
